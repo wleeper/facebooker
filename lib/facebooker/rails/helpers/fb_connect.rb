@@ -43,31 +43,22 @@ module Facebooker
             init_string = "FB.init('#{Facebooker.api_key}','#{root_url(:locale => nil)}/xd_receiver.html', #{options[:app_settings]});"
           end
           unless required_features.blank?
-             init_string = <<-FBML
+            init_string = <<-FBML
              #{case options[:js]
-               when :jquery then "jQuery(document).ready("
-               when :dojo then "dojo.addOnLoad("
-               when :mootools then "window.addEvent('domready',"
-               else "Event.observe(window,'load',"
-               end} function() {
-                if (typeof FB_RequireFeatures != 'undefined') FB_RequireFeatures(#{required_features.to_json}, function() {
+            when :jquery then "jQuery(document).ready("
+            when :dojo then "dojo.addOnLoad("
+            when :mootools then "window.addEvent('domready',"
+            else "Event.observe(window,'load',"
+            end} function() {
+            if (typeof FB_RequireFeatures != 'undefined') FB_RequireFeatures(#{required_features.to_json}, function() {
                   #{init_string}
                   #{additions}
                 });
               });
-              FBML
+            FBML
           end
 
-          # block_is_within_action_view? is rails 2.1.x and has been
-          # deprecated.  rails >= 2.2.x uses block_called_from_erb?
-          block_tester = respond_to?(:block_is_within_action_view?) ?
-            :block_is_within_action_view? : :block_called_from_erb?
-
-          if block_given? && send(block_tester, proc)
-            versioned_concat(javascript_tag(init_string),proc.binding)
-          else
-            javascript_tag init_string
-          end
+          javascript_tag init_string
         end
 
         #
