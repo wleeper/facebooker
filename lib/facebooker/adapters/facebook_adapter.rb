@@ -24,7 +24,7 @@ module Facebooker
     end
     
     def api_key
-      ENV['FACEBOOK_API_KEY'] || super      
+      ENV['FACEBOOK_API_KEY'] #|| super
     end
     
     def secret_key

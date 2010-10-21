@@ -2,9 +2,8 @@
 require 'rack/facebook'
 require 'rack/facebook_session'
 
-ActionController::Dispatcher.middleware.insert_before( 
-  ActionController::ParamsParser,
-  Rack::Facebook
+Rails::Application.middleware.insert_before(
+  ActionDispatch::ParamsParser,  Rack::Facebook
 )
 
 #use this if you aren't using the cookie store and want to use
