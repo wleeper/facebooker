@@ -433,7 +433,7 @@ module Facebooker
       # nodoc
       # needed for actionview
       def logger
-        RAILS_DEFAULT_LOGGER
+        Rails.logger
       end
 
       # nodoc
@@ -446,7 +446,7 @@ module Facebooker
 
 
       def initialize_template_class(assigns)
-        template_root = "#{RAILS_ROOT}/app/views"
+        template_root = "#{Rails.root}/app/views"
         controller_root = File.join(template_root,self.class.controller_path)
         #only do this on Rails 2.1
         if ActionController::Base.respond_to?(:append_view_path)
